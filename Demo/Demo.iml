@@ -96,6 +96,5 @@
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="WheelPicker-WheelPicker" exported="" />
-    <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
   </component>
 </module>
