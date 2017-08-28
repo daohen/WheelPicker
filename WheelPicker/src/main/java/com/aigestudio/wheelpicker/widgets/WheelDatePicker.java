@@ -409,6 +409,10 @@ public class WheelDatePicker extends LinearLayout implements WheelPicker.OnItemS
 
     @Override
     public Date getCurrentDate() {
+        mYear = mPickerYear.getCurrentYear();
+        mMonth = mPickerMonth.getCurrentMonth();
+        mDay = mPickerDay.getCurrentDay();
+
         String date = mYear + "-" + mMonth + "-" + mDay;
         try {
             return SDF.parse(date);
