@@ -30,7 +30,7 @@ public class LoadDataActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                provinces = DataManager.loadData(LoadDataActivity.this, new DataManager.Callback() {
+                provinces = DataManager.loadDataNoArea(LoadDataActivity.this, new DataManager.Callback() {
                     @Override
                     public void onCall(boolean result) {
                         if (result){

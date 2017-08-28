@@ -31,6 +31,105 @@ public class DataManager {
         void onCall(boolean result);
     }
 
+    public static List<Province> loadDataNoArea(Context context, Callback callback){
+        AssetManager am = context.getResources().getAssets();
+        try {
+            InputStream is = am.open("source.text");
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+
+            List<Province> provinces = new ArrayList<>();
+            String str, id, value;
+            Province province = null;
+            City city = null;
+
+            while ((str = bufferedReader.readLine()) != null){
+                str = removeAllBlank(str);
+                id = str.substring(0, 6);
+                value = str.substring(6, str.length());
+
+                if (id.substring(2, 6).equals("0000")){
+                    province = new Province();
+                    province.name = value;
+                    province.city = new ArrayList<>();
+                    provinces.add(province);
+                    continue;
+                }
+
+                if (id.substring(4, 6).equals("00")){
+                    city = new City();
+                    city.name = value;
+//                    city.area = new ArrayList<>();
+                    province.city.add(city);
+                    continue;
+                }
+
+//                city.area.add(value);
+            }
+
+            for (Province p : provinces){
+
+                if (p.name.contains("自治州")){
+                    p.name = p.name.replace("自治州", "州");
+                } else if (p.name.contains("自治县")){
+                    p.name = p.name.replace("自治县", "县");
+                }else if (p.name.startsWith("香港")){
+                    p.name = "香港";
+                } else if (p.name.startsWith("澳门")){
+                    p.name = "澳门";
+                } else if (p.name.equals("北京市")){
+                    p.city.clear();
+                    City city1 = new City();
+                    city1.name = "北京市";
+                    p.city.add(city1);
+                } else if (p.name.equals("重庆市")){
+                    p.city.clear();
+                    City city1 = new City();
+                    city1.name = "重庆市";
+                    p.city.add(city1);
+                } else if (p.name.equals("上海市")){
+                    p.city.clear();
+                    City city1 = new City();
+                    city1.name = "上海市";
+                    p.city.add(city1);
+                } else if (p.name.equals("天津市")){
+                    p.city.clear();
+                    City city1 = new City();
+                    city1.name = "天津市";
+                    p.city.add(city1);
+                }
+
+                if (p.city.size() == 0){
+                    City city1 = new City();
+                    city1.name = p.name;
+//                    city1.area = new ArrayList<>();
+//                    city1.area.add(p.name);
+                    p.city.add(city1);
+                    continue;
+                }
+
+                for (City c : p.city){
+//                    if (c.area.size() == 0){
+//                        c.area.add(c.name);
+//                    }
+                    if (c.name.length() > 4){
+                        if (c.name.endsWith("市")){
+                            c.name = c.name.replace("市", "");
+                        }
+                    }
+                }
+            }
+
+            callback.onCall(true);
+
+            return provinces;
+        } catch (IOException e) {
+            e.printStackTrace();
+            callback.onCall(false);
+        }
+        return null;
+    }
+
     public static List<Province> loadData(Context context, Callback callback){
         AssetManager am = context.getResources().getAssets();
         try {
