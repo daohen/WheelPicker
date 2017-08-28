@@ -5,7 +5,6 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -39,7 +38,7 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
 
     private LayoutParams mLayoutParams;
 
-    private WheelPicker mWPProvince, mWPCity, mWPArea;
+    private WheelPicker mWPProvince, mWPCity/*, mWPArea*/;
 
     public WheelAreaPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -88,19 +87,19 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
 
         mWPProvince = new WheelPicker(context);
         mWPCity = new WheelPicker(context);
-        mWPArea = new WheelPicker(context);
+//        mWPArea = new WheelPicker(context);
 
         mWPProvince.setMaximumWidthText("##########");
         mWPCity.setMaximumWidthText("##########");
-        mWPArea.setMaximumWidthText("##############");
+//        mWPArea.setMaximumWidthText("##############");
 
         mWPProvince.setItemAlign(WheelPicker.ALIGN_CENTER);
         mWPCity.setItemAlign(WheelPicker.ALIGN_CENTER);
-        mWPArea.setItemAlign(WheelPicker.ALIGN_CENTER);
+//        mWPArea.setItemAlign(WheelPicker.ALIGN_CENTER);
 
         initWheelPicker(mWPProvince);
         initWheelPicker(mWPCity);
-        initWheelPicker(mWPArea);
+//        initWheelPicker(mWPArea);
     }
 
     private void initWheelPicker(WheelPicker wheelPicker) {
@@ -131,14 +130,14 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
             }
         });
 
-        mWPCity.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(WheelPicker picker, Object data, int position) {
-                //获取城市对应的城区的名字
-                mWPArea.setData(mCityList.get(position).getArea());
-                mWPArea.setSelectedItemPosition(0, false);
-            }
-        });
+//        mWPCity.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(WheelPicker picker, Object data, int position) {
+//                //获取城市对应的城区的名字
+//                mWPArea.setData(mCityList.get(position).getArea());
+//                mWPArea.setSelectedItemPosition(0, false);
+//            }
+//        });
     }
 
     private void setCityAndAreaData(int position) {
@@ -153,8 +152,8 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
         mWPCity.setSelectedItemPosition(0, false);
         //获取第一个城市对应的城区的名字
         //重置先前的城区集合的数据
-        mWPArea.setData(mCityList.get(0).getArea());
-        mWPArea.setSelectedItemPosition(0, false);
+//        mWPArea.setData(mCityList.get(0).getArea());
+//        mWPArea.setSelectedItemPosition(0, false);
     }
 
     @Override
@@ -169,7 +168,8 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
 
     @Override
     public String getArea() {
-        return mCityList.get(mWPCity.getCurrentItemPosition()).getArea().get(mWPArea.getCurrentItemPosition());
+//        return mCityList.get(mWPCity.getCurrentItemPosition()).getArea().get(mWPArea.getCurrentItemPosition());
+        return null;
     }
 
     @Override
@@ -184,8 +184,8 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
 
     @Override
     public int getVisibleItemCount() {
-        if (mWPProvince.getVisibleItemCount() == mWPCity.getVisibleItemCount() &&
-                mWPCity.getVisibleItemCount() == mWPArea.getVisibleItemCount())
+        if (mWPProvince.getVisibleItemCount() == mWPCity.getVisibleItemCount() /*&&
+                mWPCity.getVisibleItemCount() == mWPArea.getVisibleItemCount()*/)
             return mWPProvince.getVisibleItemCount();
         throw new ArithmeticException("Can not get visible item count correctly from" +
                 "WheelDatePicker!");
@@ -195,19 +195,19 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setVisibleItemCount(int count) {
         mWPProvince.setVisibleItemCount(count);
         mWPCity.setVisibleItemCount(count);
-        mWPArea.setVisibleItemCount(count);
+//        mWPArea.setVisibleItemCount(count);
     }
 
     @Override
     public boolean isCyclic() {
-        return mWPProvince.isCyclic() && mWPCity.isCyclic() && mWPArea.isCyclic();
+        return mWPProvince.isCyclic() && mWPCity.isCyclic() /*&& mWPArea.isCyclic()*/;
     }
 
     @Override
     public void setCyclic(boolean isCyclic) {
         mWPProvince.setCyclic(isCyclic);
         mWPCity.setCyclic(isCyclic);
-        mWPArea.setCyclic(isCyclic);
+//        mWPArea.setCyclic(isCyclic);
     }
 
     @Deprecated
@@ -302,8 +302,8 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
 
     @Override
     public int getSelectedItemTextColor() {
-        if (mWPProvince.getSelectedItemTextColor() == mWPCity.getSelectedItemTextColor() &&
-                mWPCity.getSelectedItemTextColor() == mWPArea.getSelectedItemTextColor())
+        if (mWPProvince.getSelectedItemTextColor() == mWPCity.getSelectedItemTextColor()/* &&
+                mWPCity.getSelectedItemTextColor() == mWPArea.getSelectedItemTextColor()*/)
             return mWPProvince.getSelectedItemTextColor();
         throw new RuntimeException("Can not get color of selected item text correctly from" +
                 "WheelDatePicker!");
@@ -313,13 +313,13 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setSelectedItemTextColor(int color) {
         mWPProvince.setSelectedItemTextColor(color);
         mWPCity.setSelectedItemTextColor(color);
-        mWPArea.setSelectedItemTextColor(color);
+//        mWPArea.setSelectedItemTextColor(color);
     }
 
     @Override
     public int getItemTextColor() {
-        if (mWPProvince.getItemTextColor() == mWPCity.getItemTextColor() &&
-                mWPCity.getItemTextColor() == mWPArea.getItemTextColor())
+        if (mWPProvince.getItemTextColor() == mWPCity.getItemTextColor()/* &&
+                mWPCity.getItemTextColor() == mWPArea.getItemTextColor()*/)
             return mWPProvince.getItemTextColor();
         throw new RuntimeException("Can not get color of item text correctly from" +
                 "WheelDatePicker!");
@@ -329,13 +329,13 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setItemTextColor(int color) {
         mWPProvince.setItemTextColor(color);
         mWPCity.setItemTextColor(color);
-        mWPArea.setItemTextColor(color);
+//        mWPArea.setItemTextColor(color);
     }
 
     @Override
     public int getItemTextSize() {
-        if (mWPProvince.getItemTextSize() == mWPCity.getItemTextSize() &&
-                mWPCity.getItemTextSize() == mWPArea.getItemTextSize())
+        if (mWPProvince.getItemTextSize() == mWPCity.getItemTextSize()/* &&
+                mWPCity.getItemTextSize() == mWPArea.getItemTextSize()*/)
             return mWPProvince.getItemTextSize();
         throw new RuntimeException("Can not get size of item text correctly from" +
                 "WheelDatePicker!");
@@ -345,13 +345,13 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setItemTextSize(int size) {
         mWPProvince.setItemTextSize(size);
         mWPCity.setItemTextSize(size);
-        mWPArea.setItemTextSize(size);
+//        mWPArea.setItemTextSize(size);
     }
 
     @Override
     public int getItemSpace() {
-        if (mWPProvince.getItemSpace() == mWPCity.getItemSpace() &&
-                mWPCity.getItemSpace() == mWPArea.getItemSpace())
+        if (mWPProvince.getItemSpace() == mWPCity.getItemSpace() /*&&
+                mWPCity.getItemSpace() == mWPArea.getItemSpace()*/)
             return mWPProvince.getItemSpace();
         throw new RuntimeException("Can not get item space correctly from WheelDatePicker!");
     }
@@ -360,26 +360,26 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setItemSpace(int space) {
         mWPProvince.setItemSpace(space);
         mWPCity.setItemSpace(space);
-        mWPArea.setItemSpace(space);
+//        mWPArea.setItemSpace(space);
     }
 
     @Override
     public void setIndicator(boolean hasIndicator) {
         mWPProvince.setIndicator(hasIndicator);
         mWPCity.setIndicator(hasIndicator);
-        mWPArea.setIndicator(hasIndicator);
+//        mWPArea.setIndicator(hasIndicator);
     }
 
     @Override
     public boolean hasIndicator() {
-        return mWPProvince.hasIndicator() && mWPCity.hasIndicator() &&
-                mWPArea.hasIndicator();
+        return mWPProvince.hasIndicator() && mWPCity.hasIndicator() /*&&
+                mWPArea.hasIndicator()*/;
     }
 
     @Override
     public int getIndicatorSize() {
-        if (mWPProvince.getIndicatorSize() == mWPCity.getIndicatorSize() &&
-                mWPCity.getIndicatorSize() == mWPArea.getIndicatorSize())
+        if (mWPProvince.getIndicatorSize() == mWPCity.getIndicatorSize()/* &&
+                mWPCity.getIndicatorSize() == mWPArea.getIndicatorSize()*/)
             return mWPProvince.getIndicatorSize();
         throw new RuntimeException("Can not get indicator size correctly from WheelDatePicker!");
     }
@@ -388,13 +388,13 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setIndicatorSize(int size) {
         mWPProvince.setIndicatorSize(size);
         mWPCity.setIndicatorSize(size);
-        mWPArea.setIndicatorSize(size);
+//        mWPArea.setIndicatorSize(size);
     }
 
     @Override
     public int getIndicatorColor() {
-        if (mWPProvince.getCurtainColor() == mWPCity.getCurtainColor() &&
-                mWPCity.getCurtainColor() == mWPArea.getCurtainColor())
+        if (mWPProvince.getCurtainColor() == mWPCity.getCurtainColor()/* &&
+                mWPCity.getCurtainColor() == mWPArea.getCurtainColor()*/)
             return mWPProvince.getCurtainColor();
         throw new RuntimeException("Can not get indicator color correctly from WheelDatePicker!");
     }
@@ -403,26 +403,26 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setIndicatorColor(int color) {
         mWPProvince.setIndicatorColor(color);
         mWPCity.setIndicatorColor(color);
-        mWPArea.setIndicatorColor(color);
+//        mWPArea.setIndicatorColor(color);
     }
 
     @Override
     public void setCurtain(boolean hasCurtain) {
         mWPProvince.setCurtain(hasCurtain);
         mWPCity.setCurtain(hasCurtain);
-        mWPArea.setCurtain(hasCurtain);
+//        mWPArea.setCurtain(hasCurtain);
     }
 
     @Override
     public boolean hasCurtain() {
-        return mWPProvince.hasCurtain() && mWPCity.hasCurtain() &&
-                mWPArea.hasCurtain();
+        return mWPProvince.hasCurtain() && mWPCity.hasCurtain()/* &&
+                mWPArea.hasCurtain()*/;
     }
 
     @Override
     public int getCurtainColor() {
-        if (mWPProvince.getCurtainColor() == mWPCity.getCurtainColor() &&
-                mWPCity.getCurtainColor() == mWPArea.getCurtainColor())
+        if (mWPProvince.getCurtainColor() == mWPCity.getCurtainColor()/* &&
+                mWPCity.getCurtainColor() == mWPArea.getCurtainColor()*/)
             return mWPProvince.getCurtainColor();
         throw new RuntimeException("Can not get curtain color correctly from WheelDatePicker!");
     }
@@ -431,31 +431,31 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setCurtainColor(int color) {
         mWPProvince.setCurtainColor(color);
         mWPCity.setCurtainColor(color);
-        mWPArea.setCurtainColor(color);
+//        mWPArea.setCurtainColor(color);
     }
 
     @Override
     public void setAtmospheric(boolean hasAtmospheric) {
         mWPProvince.setAtmospheric(hasAtmospheric);
         mWPCity.setAtmospheric(hasAtmospheric);
-        mWPArea.setAtmospheric(hasAtmospheric);
+//        mWPArea.setAtmospheric(hasAtmospheric);
     }
 
     @Override
     public boolean hasAtmospheric() {
-        return mWPProvince.hasAtmospheric() && mWPCity.hasAtmospheric() && mWPArea.hasAtmospheric();
+        return mWPProvince.hasAtmospheric() && mWPCity.hasAtmospheric() /*&& mWPArea.hasAtmospheric()*/;
     }
 
     @Override
     public boolean isCurved() {
-        return mWPProvince.isCurved() && mWPCity.isCurved() && mWPArea.isCurved();
+        return mWPProvince.isCurved() && mWPCity.isCurved()/* && mWPArea.isCurved()*/;
     }
 
     @Override
     public void setCurved(boolean isCurved) {
         mWPProvince.setCurved(isCurved);
         mWPCity.setCurved(isCurved);
-        mWPArea.setCurved(isCurved);
+//        mWPArea.setCurved(isCurved);
     }
 
     @Override
@@ -471,8 +471,8 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
 
     @Override
     public Typeface getTypeface() {
-        if (mWPProvince.getTypeface().equals(mWPCity.getTypeface()) &&
-                mWPCity.getTypeface().equals(mWPArea.getTypeface()))
+        if (mWPProvince.getTypeface().equals(mWPCity.getTypeface())/* &&
+                mWPCity.getTypeface().equals(mWPArea.getTypeface())*/)
             return mWPProvince.getTypeface();
         throw new RuntimeException("Can not get typeface correctly from WheelDatePicker!");
     }
@@ -481,7 +481,7 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
     public void setTypeface(Typeface tf) {
         mWPProvince.setTypeface(tf);
         mWPCity.setTypeface(tf);
-        mWPArea.setTypeface(tf);
+//        mWPArea.setTypeface(tf);
     }
 
 }
