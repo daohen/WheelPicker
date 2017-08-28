@@ -378,13 +378,13 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
 
     private void computeTextSize() {
         mTextMaxWidth = mTextMaxHeight = 0;
-        if (hasSameWidth) {
+        if (!TextUtils.isEmpty(mMaxWidthText)) {
+            mTextMaxWidth = (int) mPaint.measureText(mMaxWidthText);
+        } else if (hasSameWidth) {
             mTextMaxWidth = (int) mPaint.measureText(String.valueOf(mData.get(0)));
         } else if (isPosInRang(mTextMaxWidthPosition)) {
             mTextMaxWidth = (int) mPaint.measureText
                     (String.valueOf(mData.get(mTextMaxWidthPosition)));
-        } else if (!TextUtils.isEmpty(mMaxWidthText)) {
-            mTextMaxWidth = (int) mPaint.measureText(mMaxWidthText);
         } else {
             for (Object obj : mData) {
                 String text = String.valueOf(obj);
