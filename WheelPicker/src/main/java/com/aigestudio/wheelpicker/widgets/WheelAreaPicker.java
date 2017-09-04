@@ -93,6 +93,8 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
         mWPCity.setMaximumWidthText("##########");
 //        mWPArea.setMaximumWidthText("##############");
 
+        mWPProvince.setCyclic(true);
+
         mWPProvince.setItemAlign(WheelPicker.ALIGN_CENTER);
         mWPCity.setItemAlign(WheelPicker.ALIGN_CENTER);
 //        mWPArea.setItemAlign(WheelPicker.ALIGN_CENTER);
@@ -107,7 +109,6 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
         wheelPicker.setItemTextSize(dip2px(mContext, ITEM_TEXT_SIZE));
         wheelPicker.setSelectedItemTextColor(Color.parseColor(SELECTED_ITEM_COLOR));
         wheelPicker.setCurved(true);
-        wheelPicker.setCyclic(true);
 //        wheelPicker.setItemAlign(WheelPicker.ALIGN_LEFT);
 //        wheelPicker.setLayoutParams(mLayoutParams);
         addView(wheelPicker);
