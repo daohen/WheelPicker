@@ -107,6 +107,7 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker, I
         wheelPicker.setItemTextSize(dip2px(mContext, ITEM_TEXT_SIZE));
         wheelPicker.setSelectedItemTextColor(Color.parseColor(SELECTED_ITEM_COLOR));
         wheelPicker.setCurved(true);
+        wheelPicker.setCyclic(true);
 //        wheelPicker.setItemAlign(WheelPicker.ALIGN_LEFT);
 //        wheelPicker.setLayoutParams(mLayoutParams);
         addView(wheelPicker);
